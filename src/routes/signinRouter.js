@@ -1,8 +1,10 @@
 import { Router } from "express";
 import { Login } from "../controllers/signinController.js";
+import { schemaValidate } from "../middlewares/SchemaMiddleware.js";
+import { signinSchema } from "../schemas/signinSchema.js";
 
 const signinRouter = Router();
 
-signinRouter.post("/signin", Login);
+signinRouter.post("/signin",schemaValidate(signinSchema),  Login); // ROTA NAO AUTENTICADA
 
 export default signinRouter;

@@ -1,0 +1,7 @@
+
+POST("http://localhost:5000/users", {
+  email: "teste@gmail.com",
+  name:"NOMETESTE",
+  password: "SENHATESTE",
+  passwordConfirmation:"SENHATESTE"
+})

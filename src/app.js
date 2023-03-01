@@ -9,7 +9,6 @@ import signinRouter from "./routes/signinRouter.js"
 import urlsRouter from "./routes/urlsRouter.js"
 import usersRouter from "./routes/usersRouter.js"
 
-const PORT = 5000
 
 const app = express()
 
