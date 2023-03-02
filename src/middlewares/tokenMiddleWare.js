@@ -1,4 +1,4 @@
-
+import { db } from "../config/database.js"
 
 export async function validateToken(req, res, next) {
 
@@ -6,26 +6,16 @@ export async function validateToken(req, res, next) {
 
     if (!authorization) return res.sendStatus(401)
 
-    const { userId } = { ...req.params }
+    // const { userId } = { ...req.params }
     const token = authorization.replace("Bearer ", "")
 
     try {
-        if (userId) {
+        
 
-            const tokenInDb = await db.collection("tokens").findOne({
-                userId: ObjectId(userId)
-            })
-
-            if (tokenInDb?.token !== token) return res.sendStatus(401)
-
-        } else {
+            const searchingToken = await db.query(`SELECT * FROM "tokens" WHERE token=$1`, [token])
             
-            const insertResponse = await db.collection("tokens").insertOne({
-                token: token
-            })
+            if (searchingToken.rowCount===0) return res.sendStatus(401)
 
-            if(insertResponse.acknowledged !== true) return res.sendStatus(500)
-        }
     } catch (err) {
         console.error(err)
         return res.sendStatus(500)
