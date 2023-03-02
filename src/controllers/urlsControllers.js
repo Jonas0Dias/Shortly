@@ -1,4 +1,5 @@
 import { db } from "../config/database.js";
+
 // POST PARA /urls/shorten
 export async function postShortUrl(req,res){
 

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { createUser } from "../controllers/signupController.js";
-import { schemaValidate } from "../middlewares/SchemaMiddleware.js";
+import { schemaValidate } from "../middlewares/schemaMiddleware.js";
 import { signupSchema } from "../schemas/signupSchema.js";
 
 const signupRouter = Router();
