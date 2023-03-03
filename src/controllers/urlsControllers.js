@@ -1,16 +1,18 @@
 import { db } from "../config/database.js";
 import { nanoid } from 'nanoid'
+import moment from 'moment-timezone';
 // POST PARA /urls/shorten
 export async function postShortUrl(req,res){
     const { url } = req.body
     const { authorization } = req.headers
     const token = authorization.replace("Bearer ", "")
     try{
+        const now = moment().tz('America/Sao_Paulo').format();
         const shortUrl = nanoid(8);
         await db.query(`
-        INSERT INTO "urls" (token, url, "shortUrl") 
+        INSERT INTO "urls" (token, url, "shortUrl",createdAt) 
         VALUES ($1, $2, $3)
-        `, [token, url, shortUrl])
+        `, [token, url, shortUrl,now])
 
         const urlData = await db.query(`
         SELECT * FROM urls

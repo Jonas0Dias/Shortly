@@ -18,7 +18,7 @@ export async function createUser(req,res){
         }
         const now = moment().tz('America/Sao_Paulo').format();
        
-        await db.query(`INSERT INTO users (name, email, password, "createDate") values ($1, $2, $3, $4)`, [user.name, user.email, password, now]);
+        await db.query(`INSERT INTO users (name, email, password, "createdAt") values ($1, $2, $3, $4)`, [user.name, user.email, password, now]);
         res.sendStatus(201);
 
     }catch(err){
