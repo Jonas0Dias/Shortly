@@ -28,7 +28,7 @@ CREATE TABLE public.tokens (
     id integer NOT NULL,
     token character varying(36) NOT NULL,
     user_id integer NOT NULL,
-    "createDate" timestamp without time zone NOT NULL
+    "createdAt" timestamp without time zone NOT NULL
 );
 
 
@@ -62,7 +62,7 @@ CREATE TABLE public.urls (
     url character varying(50) NOT NULL,
     "shortUrl" character varying(8) NOT NULL,
     "visitCount" integer DEFAULT 0 NOT NULL,
-    "createDate" timestamp without time zone NOT NULL
+    "createdAt" timestamp without time zone NOT NULL
 );
 
 
@@ -95,7 +95,7 @@ CREATE TABLE public.users (
     email character varying(100) NOT NULL,
     password character varying(50) NOT NULL,
     name character varying(30) NOT NULL,
-    "createDate" timestamp without time zone NOT NULL
+    "createdAt" timestamp without time zone NOT NULL
 );
 
 
