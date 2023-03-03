@@ -56,7 +56,8 @@ export async function getShortUrl(req,res){
 // GET PARA /urls/open/:shortUrl
 export async function goToShortUrl(req,res){
     const  { shortUrl } = req.params
-    
+    const teste = await db.query(`SELECT * from "urls"`)
+    console.log(teste.rows)
     try{
         const searchingShortUrl = await db.query(`SELECT * from "urls" WHERE "shortUrl" =$1`,[shortUrl])
        
