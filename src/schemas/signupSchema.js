@@ -4,5 +4,5 @@ export const signupSchema = Joi.object({
    email: Joi.string().required().email().empty().disallow(''),
    name: Joi.string().required().empty().disallow(''),
    password: Joi.string().required().empty().disallow(''),
-   passwordConfirmation: Joi.string().valid(Joi.ref("password")).required().empty().disallow('')
+   confirmPassword: Joi.string().valid(Joi.ref("password")).required().empty().disallow('')
  });
