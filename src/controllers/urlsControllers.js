@@ -3,6 +3,8 @@ import { nanoid } from 'nanoid'
 import moment from 'moment-timezone';
 // POST PARA /urls/shorten
 export async function postShortUrl(req,res){
+    console.log('teste')
+
     const { url } = req.body
     const { authorization } = req.headers
     const token = authorization.replace("Bearer ", "")
@@ -19,7 +21,7 @@ export async function postShortUrl(req,res){
         WHERE url = $1
         `, [url])
 
-        console.log(urlData)
+        // console.log(urlData)
 
 
         res.status(201).send({id: urlData.rows[0].id, shortUrl: urlData.rows[0].shortUrl})
