@@ -10,8 +10,8 @@ export async function postShortUrl(req,res){
         const now = moment().tz('America/Sao_Paulo').format();
         const shortUrl = nanoid(8);
         await db.query(`
-        INSERT INTO "urls" (token, url, "shortUrl",createdAt) 
-        VALUES ($1, $2, $3)
+        INSERT INTO "urls" (token, url, "shortUrl","createdAt") 
+        VALUES ($1, $2, $3,$4)
         `, [token, url, shortUrl,now])
 
         const urlData = await db.query(`
@@ -59,13 +59,15 @@ export async function getShortUrl(req,res){
 export async function goToShortUrl(req,res){
     const  { shortUrl } = req.params
     const teste = await db.query(`SELECT * from "urls"`)
-    console.log(teste.rows)
+    // console.log(teste.rows)
     try{
         const searchingShortUrl = await db.query(`SELECT * from "urls" WHERE "shortUrl" =$1`,[shortUrl])
        
         if(searchingShortUrl.rowCount===0) return res.send(404)
         else{
-            await db.query(`UPDATE "urls" SET "visitcount"=$1 WHERE "id" = $2;`,[ searchingShortUrl.rows[0].visitcount+1, searchingShortUrl.rows[0].id])
+            const teste = await db.query(`UPDATE "urls" SET "visitCount"=$1 WHERE "id" = $2;`,[ searchingShortUrl.rows[0].visitCount+1, searchingShortUrl.rows[0].id])
+            console.log(teste)
+            console.log(`Redirecionando para: ${searchingShortUrl.rows[0].url}`);
             res.redirect(302, searchingShortUrl.rows[0].url)
 
         }
