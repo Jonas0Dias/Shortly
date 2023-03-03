@@ -56,14 +56,18 @@ export async function getShortUrl(req,res){
 // GET PARA /urls/open/:shortUrl
 export async function goToShortUrl(req,res){
     const  { shortUrl } = req.params
+    
     try{
         const searchingShortUrl = await db.query(`SELECT * from "urls" WHERE "shortUrl" =$1`,[shortUrl])
-
+       
         if(searchingShortUrl.rowCount===0) return res.send(404)
         else{
-            res.redirect(302, shortUrl)
+            await db.query(`UPDATE "urls" SET "visitcount"=$1 WHERE "id" = $2;`,[ searchingShortUrl.rows[0].visitcount+1, searchingShortUrl.rows[0].id])
+            res.redirect(302, searchingShortUrl.rows[0].url)
+
         }
     }catch(err){
+
         res.status(500).send(err.message)
     }
 } 
